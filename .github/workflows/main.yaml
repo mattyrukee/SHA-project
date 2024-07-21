@@ -48,13 +48,16 @@ jobs:
             exit 1
           fi
 
-      - name: Extract AMI id from packer
+      - name: Extract AMI ID from Packer output
         id: extract-ami-id
         run: |
-          AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=name" --query 'Images[0].ImageId' --output text)
-          echo "Extracted AMI ID: $AMI_ID"
-          [ -z "$AMI_ID" ] && { echo "AMI ID not found!"; exit 1; }
-          echo "::set-output name=ami_id::$AMI_ID"
+            AMI_ID=$(grep -o 'ami-[a-z0-9]\{8,17\}' build.log | tail -n1)
+            echo "Extracted AMI ID: $AMI_ID"
+            if [ -z "$AMI_ID" ]; then
+              echo "AMI ID not found in build log!"
+              exit 1
+            fi
+            echo "::set-output name=ami_id::$AMI_ID"
     
   deploy-to-testing:
     if: startsWith(github.ref, 'refs/heads/feature/')
