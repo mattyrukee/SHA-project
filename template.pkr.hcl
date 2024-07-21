@@ -1,10 +1,10 @@
 packer {
-  required_plugins {
+    required_plugins {
     amazon = {
-      #source  = "github.com/hashicorp/amazon"
-      source = "github.com/hashicorp/amazon ~> 1"
-      #version = "~> 1"
+      version = ">= 1.0.0"
+      source  = "github.com/hashicorp/amazon"
     }
+  }
   }
 }
 variable "aws_region" {
