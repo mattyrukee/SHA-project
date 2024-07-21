@@ -11,7 +11,7 @@ on:
 
 jobs:
   packer-test:
-    runs-on: xterns
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -56,7 +56,7 @@ jobs:
   deploy-to-testing:
     if: startsWith(github.ref, 'refs/heads/feature/')
     needs: packer-test
-    runs-on: xterns
+    runs-on: ubuntu-latest
     environment: testing
 
     steps: 
@@ -109,7 +109,7 @@ jobs:
   deploy-to-production:
     if: github.ref == 'refs/heads/main'
     needs: packer-test
-    runs-on: xterns
+    runs-on: ubuntu-latest
     environment: production
    
     steps:
