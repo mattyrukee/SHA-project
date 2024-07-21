@@ -23,7 +23,7 @@ jobs:
          version: '1.9.3'
 
       - name: Initialize packer
-        uses: packer init template.pkr.hcl
+        run: packer init template.pkr.hcl
 
       - name: Validate Packer template
         run: packer validate template.pkr.hcl
