@@ -1,12 +1,11 @@
 packer {
   required_plugins {
     amazon = {
-      version = ">= 1.0.0"
       source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
     }
   }
 }
-
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -41,7 +40,7 @@ build {
   sources = ["source.amazon-ebs.ubuntu"]
   provisioner "shell" {
     inline = [
-      "if [ \"${var.os_type}\" = \"ubuntu\" ]; then",
+      "if [= \"ubuntu\" ]; then",
       "  sudo apt-get update -y",
       "  sudo apt-get upgrade -y",
       "else",
@@ -51,6 +50,3 @@ build {
     ]
   }
 }
-
-
-#now we arwe good
