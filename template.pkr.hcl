@@ -1,12 +1,12 @@
 packer {
-    required_plugins {
+  required_plugins {
     amazon = {
       version = ">= 1.0.0"
       source  = "github.com/hashicorp/amazon"
     }
   }
-  }
 }
+
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -51,5 +51,6 @@ build {
     ]
   }
 }
+
 
 #now we arwe good
