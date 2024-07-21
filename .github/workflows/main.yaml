@@ -52,16 +52,16 @@ jobs:
           run: |
             cat build.log
         
-      - name: Extract AMI ID from Packer output
+      - name: Extract AMI ID from Packer output using awk
         id: extract-ami-id
         run: |
-            AMI_ID=$(grep -o 'ami-[a-z0-9]\{8,17\}' build.log | tail -n1)
-            echo "Extracted AMI ID: $AMI_ID"
-            if [ -z "$AMI_ID" ]; then
-              echo "AMI ID not found in build log!"
-              exit 1
-            fi
-            echo "::set-output name=ami_id::$AMI_ID"
+              AMI_ID=$(awk '/ami-[a-z0-9]{8,17}/ {print $1}' build.log | tail -n1)
+              echo "Extracted AMI ID: $AMI_ID"
+              if [ -z "$AMI_ID" ]; then
+                echo "AMI ID not found in build log!"
+                exit 1
+              fi
+              echo "::set-output name=ami_id::$AMI_ID"
     
   deploy-to-testing:
     if: startsWith(github.ref, 'refs/heads/feature/')
