@@ -49,8 +49,7 @@ jobs:
           fi
 
       - name: Check build log
-        run: |
-            cat build.log
+        run: cat build.log
         
       - name: Extract AMI ID from Packer output
         id: extract-ami-id
